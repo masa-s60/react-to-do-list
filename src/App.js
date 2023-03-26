@@ -1,60 +1,45 @@
+import { useState, useRef, createContext } from "react";
+import SelectButton from './components/Presentational/Templates/selectButton.jsx';
+import TaskTable from './components/Presentational/Templates/taskTable';
+import WrappedInputField from './components/Presentational/Templates/inputField';
+import AddButton from './components/Presentational/Templates/add-button.jsx';
 import './App.css';
-import Title from './components/Presentational/title.jsx'
-import WrappedInputField from './components/Presentational/Templates/new-task-input.jsx'
-import AddButton from './components/Presentational/Templates/add-button.jsx'
-import { useState } from "react";
-import { useRef,  useEffect} from "react";
 
 function App() {
-  const removeRef = useRef();
-  // useEffect(() => {
-  //   removeRef.current.removeInputField();
-  // }, [removeRef.current]);
+  const refInputField = useRef();
+  const [checkedButton, changeButton] = useState('すべて');
   const [inputTask, holdTask] = useState("");
-  const [tasks, pushTask] = useState(['a','b']);
-  const setTask = {
-    addTask : () => {
-      pushTask([...tasks, inputTask]);
-      console.log(tasks);
-      removeRef.current.removeInputField();
+  const [tasks, pushTask] = useState([{comment: 'タスク１', status: '作業中'}, {comment: 'タスク２', status: '作業中'}, {comment: 'タスク３', status: '作業中'}]);
+  const relationTaskListDisplay = {
+    checkedButton,
+    changeButton,
+    tasks,
+    pushTask,
+  }
+  const addTask = () => {
+    if(inputTask === '') {
+      console.log('入力がありません');
+      return;
+    } else {
+      const newTasks = [...tasks, {comment: inputTask, status: '作業中'}];
+      pushTask(newTasks);
+      refInputField.current.removeInputField();
     }
   }
+
   return (
     <div>
-      <Title title="ToDoリスト"/>
-      <div>
-        <label for="all">
-          <input id="all" className="p-radio-button" type="radio" name="status" checked/>
-          全て
-        </label>
-        <label for="working">
-          <input id="working" className="p-radio-button" type="radio" name="status"/>
-          作業中
-        </label>
-        <label for="complete">
-          <input id="complete" className="p-radio-button" type="radio" name="status"/>
-          完了
-        </label>
-      </div>
-
-      <table id="status" className="p-status">
-        <thead>
-          <tr>
-            <td>ID</td>
-            <td>コメント</td>
-            <p>{tasks}</p>
-            <td>状態</td>
-          </tr>
-        </thead>
-        <tbody id="taskBody">
-        </tbody>
-      </table>
-
-      <Title title="新規タスクの追加"/>
-      <WrappedInputField holdTask={holdTask} ref={removeRef}/>
-      <AddButton setTask={setTask}/>
+      <h1>ToDoリスト</h1>
+      <context.Provider value={relationTaskListDisplay}>
+        <SelectButton/>
+        <TaskTable/> 
+      </context.Provider>
+      <h2>新規タスクの追加</h2>
+      <WrappedInputField holdTask={holdTask} ref={refInputField}/>
+      <AddButton addTask={addTask}/>
     </div>
   );
 }
 
+export const context = createContext();
 export default App;

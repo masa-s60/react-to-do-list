@@ -1,14 +1,16 @@
-import { useState } from "react";
-import {useImperativeHandle, forwardRef} from "react";
+import { useState, useEffect } from "react";
+import { useImperativeHandle, forwardRef } from "react";
 
-const InputField = (props, ref) => {
+const InputField = (props, refFunction) => {
   const [inputTask, setTask] = useState('');
-  useImperativeHandle(ref, () => ({
+  useImperativeHandle(refFunction, () => ({
     removeInputField: () => {
       setTask('');
     },
   }));
-  props.holdTask(inputTask);
+  useEffect(() => {
+    props.holdTask(inputTask);
+  }, [inputTask]);
   return(
     <div className="u-new-task__input">
       <input type="text" value={inputTask} onChange={(e) => {setTask(e.target.value)}}/>
