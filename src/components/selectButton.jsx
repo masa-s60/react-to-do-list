@@ -1,5 +1,5 @@
-import {useContext} from 'react'
-import { context } from '../../../App'
+import { useContext } from 'react'
+import { context } from '../App'
 
 const SelectButton = () => {
   const relationTaskListDisplay = useContext(context);
@@ -7,7 +7,6 @@ const SelectButton = () => {
     relationTaskListDisplay.changeButton(e.target.value);
   }
   const radioButtons = ['すべて', '作業中', '完了'];
-
   return(
     <div>
       {radioButtons.map( (item) => {

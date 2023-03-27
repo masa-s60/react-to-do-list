@@ -1,7 +1,5 @@
 import TaskList from "./taskList";
-
 const TaskTable = () => {
-
   return(
     <div>
       <table>

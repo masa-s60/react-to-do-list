@@ -1,5 +1,4 @@
 const AddButton = (props) => {
-  console.log('ボタンクリック');
   return(
     <div>
       <button type="text" onClick={props.addTask}>
@@ -8,5 +7,5 @@ const AddButton = (props) => {
     </div>
   );
 }
-  
+
 export default AddButton;
