@@ -1,10 +1,9 @@
 import { useContext } from 'react'
-import { context } from '../App'
-
+import { context } from '../../../../../App'
 const SelectButton = () => {
-  const relationTaskListDisplay = useContext(context);
+  const taskListState = useContext(context);
   const setRadioButton = (e) => {
-    relationTaskListDisplay.changeButton(e.target.value);
+    taskListState.changeButton(e.target.value);
   }
   const radioButtons = ['すべて', '作業中', '完了'];
   return(
@@ -17,7 +16,7 @@ const SelectButton = () => {
             type="radio" 
             onChange={ e => setRadioButton(e)} 
             value={item} 
-            checked={item === relationTaskListDisplay.checkedButton}/>{item}
+            checked={item === taskListState.checkedButton}/>{item}
           </label>
         )
       })}

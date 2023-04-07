@@ -1,4 +1,4 @@
-import TaskList from "./taskList";
+import TaskList from "./parts/taskList";
 const TaskTable = () => {
   return(
     <div>
