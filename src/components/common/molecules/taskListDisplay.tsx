@@ -1,4 +1,4 @@
-import SelectButton from "./parts/selectButton";
+import SelectButton from "../atoms/selectButton";
 import TaskTable from "./taskTable";
 
 function TaskListDisplay() {
